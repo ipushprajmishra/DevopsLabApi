@@ -1,95 +1,87 @@
-﻿using DevopsLabApi.Models;
-using Microsoft.AspNetCore.Http;
+﻿using DevopsLabApi.Data;
+using DevopsLabApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace DevopsLabApi.Controllers
+namespace DevopsLabApi.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class ProductsController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProductsController : ControllerBase
+    private readonly AppDbContext _dbContext;
+
+    public ProductsController(AppDbContext dbContext)
     {
-        private static readonly List<Product> Products = new()
+        _dbContext = dbContext;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
     {
-        new Product
-        {
-            Id = 1,
-            Name = "Laptop",
-            Description = "Developer laptop",
-            Price = 75000,
-            IsActive = true
-        },
-        new Product
-        {
-            Id = 2,
-            Name = "Monitor",
-            Description = "27 inch monitor",
-            Price = 25000,
-            IsActive = true
-        }
-    };
+        var products = await _dbContext.Products.ToListAsync();
 
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            return Ok(Products);
-        }
+        return Ok(products);
+    }
 
-        [HttpGet("{id:int}")]
-        public IActionResult GetById(int id)
-        {
-            var product = Products.FirstOrDefault(x => x.Id == id);
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var product = await _dbContext.Products.FindAsync(id);
 
-            if (product == null)
-                return NotFound();
+        if (product == null)
+            return NotFound();
 
-            return Ok(product);
-        }
+        return Ok(product);
+    }
 
-        [HttpPost]
-        public IActionResult Create(Product product)
-        {
-            product.Id = Products.Count == 0
-                ? 1
-                : Products.Max(x => x.Id) + 1;
+    [HttpPost]
+    public async Task<IActionResult> Create(Product product)
+    {
+        product.Id = 0;
+        product.CreatedAtUtc = DateTime.UtcNow;
 
-            product.CreatedAtUtc = DateTime.UtcNow;
+        _dbContext.Products.Add(product);
 
-            Products.Add(product);
+        await _dbContext.SaveChangesAsync();
 
-            return CreatedAtAction(
-                nameof(GetById),
-                new { id = product.Id },
-                product);
-        }
+        return CreatedAtAction(
+            nameof(GetById),
+            new { id = product.Id },
+            product);
+    }
 
-        [HttpPut("{id:int}")]
-        public IActionResult Update(int id, Product request)
-        {
-            var product = Products.FirstOrDefault(x => x.Id == id);
+    [HttpPut("{id:int}")]
+    public async Task<IActionResult> Update(int id, Product request)
+    {
+        var product = await _dbContext.Products.FindAsync(id);
 
-            if (product == null)
-                return NotFound();
+        if (product == null)
+            return NotFound();
 
-            product.Name = request.Name;
-            product.Description = request.Description;
-            product.Price = request.Price;
-            product.IsActive = request.IsActive;
-            product.UpdatedAtUtc = DateTime.UtcNow;
+        product.Name = request.Name;
+        product.Description = request.Description;
+        product.Price = request.Price;
+        product.IsActive = request.IsActive;
+        product.UpdatedAtUtc = DateTime.UtcNow;
 
-            return Ok(product);
-        }
+        await _dbContext.SaveChangesAsync();
 
-        [HttpDelete("{id:int}")]
-        public IActionResult Delete(int id)
-        {
-            var product = Products.FirstOrDefault(x => x.Id == id);
+        return Ok(product);
+    }
 
-            if (product == null)
-                return NotFound();
+    [HttpDelete("{id:int}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var product = await _dbContext.Products.FindAsync(id);
 
-            Products.Remove(product);
+        if (product == null)
+            return NotFound();
 
-            return NoContent();
-        }
+        _dbContext.Products.Remove(product);
+
+        await _dbContext.SaveChangesAsync();
+
+        return NoContent();
     }
 }
