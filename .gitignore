@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/DevopsLabApi
+/DevopsLabApi/obj
+/DevopsLabApi/bin/Debug/net8.0
