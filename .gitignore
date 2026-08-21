@@ -5,3 +5,5 @@
 /.vs/DevopsLabApi
 /DevopsLabApi/obj
 /DevopsLabApi/bin/Debug/net8.0
+/DevopsLabApiTests/bin/Debug/net8.0
+/DevopsLabApiTests/obj
