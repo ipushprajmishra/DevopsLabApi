@@ -8,3 +8,4 @@
 /DevopsLabApiTests/bin/Debug/net8.0
 /DevopsLabApiTests/obj
 /.vs/ProjectEvaluation
+.gitignore
