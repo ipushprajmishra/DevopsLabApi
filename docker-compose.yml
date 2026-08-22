@@ -12,10 +12,10 @@ services:
     networks:
       - devops-network
     healthcheck:
-  	test: ["CMD-SHELL", "pg_isready -U devopslab_user -d devopslab"]
-  	interval: 5s
-  	timeout: 5s
-  	retries: 5
+      test: ["CMD-SHELL", "pg_isready -U devopslab_user -d devopslab"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   api:
     build:
