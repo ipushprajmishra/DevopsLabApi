@@ -1,0 +1,33 @@
+services:
+
+  postgres:
+    image: postgres:18
+    container_name: postgres
+    environment:
+      POSTGRES_DB: devopslab
+      POSTGRES_USER: devopslab_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - devopslab-postgres-data:/var/lib/postgresql
+    networks:
+      - devops-network
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: devopslab-api
+    environment:
+      ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=devopslab;Username=devopslab_user;Password=${POSTGRES_PASSWORD}"
+    ports:
+      - "5189:8080"
+    depends_on:
+      - postgres
+    networks:
+      - devops-network
+
+volumes:
+  devopslab-postgres-data:
+
+networks:
+  devops-network:
