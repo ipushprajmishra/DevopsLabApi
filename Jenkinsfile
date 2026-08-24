@@ -110,13 +110,17 @@ pipeline {
       }
 
       steps {
-        sh '''
-        export IMAGE_TAG="$GIT_SHA"
 
+        withCredentials([usernamePassword(credentialsId: 'devopslab-postgres', passwordVariable: 'POSTGRES_PASSWORD', usernameVariable: 'POSTGRES_USERNAME')]) {
+   sh '''
+        export IMAGE_TAG="$GIT_SHA"
+        export POSTGRES_PASSWORD="$POSTGRES_PASSWORD"
         docker compose -f docker-compose.yml -f docker-compose.deploy.yml pull api
 
         docker compose -f docker-compose.yml -f docker-compose.deploy.yml up -d api
          '''
+}
+        
       }
     }
 
