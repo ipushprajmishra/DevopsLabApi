@@ -65,15 +65,8 @@ pipeline {
     stage('Docker Build') {
       steps {
 
-        sh """
-        docker build\
-          -
-          t $ {
-            DOCKER_IMAGE
-          }: $ {
-            GIT_SHA
-          }\
-          .
+        sh """ 
+        docker build -t ${DOCKER_IMAGE}: ${GIT_SHA} . 
         """
 
       }
@@ -81,16 +74,10 @@ pipeline {
     stage('Docker Push') {
       steps {
 
-        sh """
-
-        docker push $ {
-          DOCKER_IMAGE
-        }: $ {
-          GIT_SHA
-        }
-
-        docker logout
-          """
+        sh """ 
+        docker push ${DOCKER_IMAGE}:${GIT_SHA}
+        docker logout 
+        """
 
       }
     }
