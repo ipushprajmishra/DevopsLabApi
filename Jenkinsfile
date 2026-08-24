@@ -9,6 +9,9 @@ pipeline {
     choice choices: ['dev', 'staging', 'production'], description: 'Environment to deploy the application to', name: 'DEPLOY_ENV'
 
   }
+tools {
+  git 'Default'
+}
 
   environment {
     APP_NAME = 'devopslab-api'
