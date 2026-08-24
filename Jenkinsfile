@@ -20,9 +20,8 @@ pipeline {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhub-devopslab', passwordVariable: 'DOCKER_TOKEN', usernameVariable: 'DOCKER_USERNAME')]) {
           sh '''
-          echo "$DOCKER_TOKEN" | docker login\
-            --username "$DOCKER_USERNAME"\
-            --password - stdin '''
+          echo "$DOCKER_TOKEN" | docker login --username "$DOCKER_USERNAME" --password -stdin 
+          '''
         }
 
       }
