@@ -14,6 +14,7 @@ pipeline {
 environment {
     APP_NAME = 'devopslab-api'
     DOCKER_IMAGE = 'ipushprajmishra/devopslab-api'
+    GIT_SHA = ''
 }
    stages {
        
@@ -66,14 +67,14 @@ environment {
       stage('Docker Build') {
     steps {
         script {
-            def gitSha = sh(
+            env.GIT_SHA = sh(
                 script: 'git rev-parse --short HEAD',
                 returnStdout: true
             ).trim()
 
             sh """
                 docker build \
-                    -t ${DOCKER_IMAGE}:${gitSha} \
+                    -t ${DOCKER_IMAGE}:${GIT_SHA} \
                     .
             """
         }
@@ -89,7 +90,7 @@ stage('Docker Push') {
            sh """
 
 
-                docker push ${DOCKER_IMAGE}:${gitSha}
+                docker push ${DOCKER_IMAGE}:${GIT_SHA}
 
                 docker logout
            """
