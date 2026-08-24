@@ -19,12 +19,10 @@ pipeline {
     stage('check docker') {
       steps {
         withCredentials([usernamePassword(credentialsId: 'dockerhub-devopslab', passwordVariable: 'DOCKER_TOKEN', usernameVariable: 'DOCKER_USERNAME')]) {
-          sh ''
-          '
+          sh ''          '
           echo "$DOCKER_TOKEN" | docker login\
             --username "$DOCKER_USERNAME"\
-            --password - stdin ''
-          '
+            --password - stdin '''
         }
 
       }
@@ -67,8 +65,7 @@ pipeline {
     stage('Docker Build') {
       steps {
 
-        sh ""
-        "
+        sh """
         docker build\
           -
           t $ {
@@ -77,16 +74,14 @@ pipeline {
             GIT_SHA
           }\
           .
-        ""
-        "
+        """
 
       }
     }
     stage('Docker Push') {
       steps {
 
-        sh ""
-        "
+        sh """
 
         docker push $ {
           DOCKER_IMAGE
@@ -95,8 +90,7 @@ pipeline {
         }
 
         docker logout
-          ""
-        "
+          """
 
       }
     }
@@ -125,8 +119,7 @@ pipeline {
       }
 
       steps {
-        sh ''
-        '
+        sh '''
         export IMAGE_TAG = "$GIT_SHA"
 
         docker compose\
@@ -139,8 +132,7 @@ pipeline {
           -
           f docker - compose.yml\ -
           f docker - compose.deploy.yml\
-        up - d api ''
-        '
+        up - d api '''
       }
     }
 
