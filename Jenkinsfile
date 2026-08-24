@@ -36,8 +36,12 @@ pipeline {
         git branch: 'main', credentialsId: 'GitHub', url: 'https://github.com/ipushprajmishra/DevopsLabApi.git'
 
         script {
-          env.GIT_SHA = env.GIT_COMMIT.take(6)
-            echo "Git SHA: ${env.GIT_SHA}"
+           env.GIT_SHA = sh(
+        script: 'git rev-parse --short=6 HEAD',
+        returnStdout: true
+    ).trim()
+
+    echo "Git SHA: ${env.GIT_SHA}"
         }
       }
     }
