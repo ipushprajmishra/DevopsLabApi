@@ -70,7 +70,7 @@ pipeline {
       steps {
 
         sh """ 
-        docker build -t ${DOCKER_IMAGE}: ${GIT_SHA} . 
+        docker build -t ${DOCKER_IMAGE}:${GIT_SHA} . 
         """
 
       }
