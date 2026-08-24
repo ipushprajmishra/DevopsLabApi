@@ -40,6 +40,7 @@ tools {
 
         script {
           env.GIT_SHA = env.GIT_COMMIT.take(6)
+            echo "Git SHA: ${env.GIT_SHA}"
         }
       }
     }
