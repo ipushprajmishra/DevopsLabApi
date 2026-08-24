@@ -109,17 +109,10 @@ pipeline {
         sh '''
         export IMAGE_TAG = "$GIT_SHA"
 
-        docker compose\
-          -
-          f docker - compose.yml\ -
-          f docker - compose.deploy.yml\
-        pull api
+        docker compose -f docker-compose.yml -f docker-compose.deploy.yml pull api
 
-        docker compose\
-          -
-          f docker - compose.yml\ -
-          f docker - compose.deploy.yml\
-        up - d api '''
+        docker compose -f docker-compose.yml -f docker-compose.deploy.yml up -d api
+         '''
       }
     }
 
