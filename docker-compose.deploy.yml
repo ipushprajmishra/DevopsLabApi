@@ -1,0 +1,4 @@
+services:
+  api:
+    image: ${DOCKER_IMAGE}:${IMAGE_TAG}
+    build: !reset null
