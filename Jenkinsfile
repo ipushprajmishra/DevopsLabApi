@@ -111,7 +111,7 @@ pipeline {
 
       steps {
         sh '''
-        export IMAGE_TAG = "$GIT_SHA"
+        export IMAGE_TAG="$GIT_SHA"
 
         docker compose -f docker-compose.yml -f docker-compose.deploy.yml pull api
 
