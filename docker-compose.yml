@@ -32,6 +32,7 @@ services:
 
 volumes:
   devopslab-postgres-data:
+   external: true
 
 networks:
   devops-network:
