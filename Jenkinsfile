@@ -7,7 +7,7 @@ pipeline {
 
     parameters {
       choice choices: ['dev', 'staging', 'production'], description: 'Environment to deploy the application to', name: 'DEPLOY_ENV'
-        choice choices: ['docker', 'systemd'], description: 'Select deployment target', name: 'DEPLOY_TYPE'
+
     }
 
 
@@ -113,19 +113,45 @@ stage('Docker Push') {
     }
 }
 
-stage('Deploy') {
+// stage('Deploy') {
+//     when {
+//         expression {
+//             params.DEPLOY_ENV == 'dev'
+//         }
+//     }
+//     steps {
+//         sh '''
+//             rm -rf /opt/devopslab-api/*
+//             cp -r publish/* /opt/devopslab-api/
+//             sudo systemctl restart ${APP_NAME}
+//         '''
+//     }
+// }
+
+
+stage('Docker Deploy') {
     when {
         expression {
             params.DEPLOY_ENV == 'dev'
         }
     }
+
     steps {
         sh '''
-            rm -rf /opt/devopslab-api/*
-            cp -r publish/* /opt/devopslab-api/
-            sudo systemctl restart ${APP_NAME}
+            export IMAGE_TAG="$GIT_SHA"
+
+            docker compose \
+                -f docker-compose.yml \
+                -f docker-compose.deploy.yml \
+                pull api
+
+            docker compose \
+                -f docker-compose.yml \
+                -f docker-compose.deploy.yml \
+                up -d api
         '''
     }
 }
+
    }
 }
