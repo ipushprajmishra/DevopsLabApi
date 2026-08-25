@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
+  namespace: k8slab
+
+spec: 
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers: 
+      - name: nginx
+        image: nginx:1.25-alpine
+        ports:  
+        - containerPort: 80
+        envFrom:
+        - configMapRef:
+            name: nginx-config
+        - secretRef:
+            name: nginx-secret
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 256Mi
+
+
+        # env:
+        # - name: APP_DEMO
+        #   valueFrom:
+        #     configMapKeyRef:
+        #       name: nginx-config1
+        #       key: APP_DEMO
+        # - name: APP_PASSWORD
+        #   valueFrom:
+        #     secret:
+        #       name: nginx-secret1
+        #       key: APP_PASSWORD
+    
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+

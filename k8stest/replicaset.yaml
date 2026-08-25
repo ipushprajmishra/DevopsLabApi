@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx-replica
+  namespace: k8slab
+spec: 
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec: 
+      containers:
+      - image: nginx:alpine
+        name: nginx
+        ports: 
+        -  containerPort: 80

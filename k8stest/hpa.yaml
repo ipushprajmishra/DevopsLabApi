@@ -1,0 +1,27 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscalar
+
+metadata:
+  name: nginx-hpa
+  namespace: k8slab
+
+spec:
+  minReplicas: 2
+  maxReplicas: 5
+
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: utilization
+        averageUtilization: 50
+
+  scaleTargetref:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: nginx-deploy
+
+
+
+

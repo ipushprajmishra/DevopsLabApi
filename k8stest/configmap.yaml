@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: 
+  name: nginx-config
+  namespace: k8slab
+data:
+  APP_CREATOR: "Pushpraj Mishra"
+  APP_ENVIRONMENT: "PRODUCTION"
+
+
+
+# ...............................................
+
+
+
+# apiVersion: v1
+# kind: ConfigMap
+# metadata: 
+#   name: nginx-config1
+#   namespace: k8slab
+# data:
+#   APP_DEMO: "Done"
