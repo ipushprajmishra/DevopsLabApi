@@ -1,0 +1,6 @@
+@KubernetesMetricsApi_HostAddress = http://localhost:5244
+
+GET {{KubernetesMetricsApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

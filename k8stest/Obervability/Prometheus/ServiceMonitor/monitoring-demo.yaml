@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitoring-demo
+  namespace: kubernetes-lab
+  labels:
+    app: monitoring-demo
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: monitoring-demo
+
+  template:
+    metadata:
+      labels:
+        app: monitoring-demo
+
+    spec:
+      containers:
+        - name: metrics
+          image: quay.io/brancz/prometheus-example-app:v0.5.0
+          ports:
+            - name: metrics
+              containerPort: 8080

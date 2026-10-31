@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: pdb-demo
+  namespace: kubernetes-lab
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pdb-demo
+
+  template:
+    metadata:
+      labels: 
+        app: pdb-demo
+        
+    spec:
+      containers:
+        - name: ngnix
+          image: nginx:1.26-alpine

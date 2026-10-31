@@ -1,0 +1,26 @@
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+
+metadata:
+  name: app-critical
+
+value: 100000
+globalDefault: false
+
+description: "Priority class for critical applicatio workloads"
+
+
+
+...
+
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+
+metadata:
+  name: batch-low
+
+value: 100
+
+globalDefault: false
+
+description: "Priority class for low-priority batch workloads"

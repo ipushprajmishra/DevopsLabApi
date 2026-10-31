@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: spread-demo
+  namespace: kubernetes-lab
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spread-demo
+
+  template:
+    metadata:
+      labels:
+        app: spread-demo
+
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.26-nginx
+
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule #ScheduleAnyway
+
+          labelSelector:
+            matchLabels:
+              app: spread-demo

@@ -1,0 +1,21 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+
+metadata:
+  name: monitoring-demo
+  namespace: kubernetes-lab
+  labels:
+     release: monitoring
+
+spec:
+ namespaceSelector:
+    matchNames:
+      - kubernetes-lab
+  selector:
+    matchLabels:
+      app: monitoring-demo
+
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 15s

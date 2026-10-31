@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevopsLabApi", "DevopsLabAp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevopsLabApiTests", "DevopsLabApiTests\DevopsLabApiTests.csproj", "{0B14ACE6-B274-4726-AACC-78414EB23157}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KubernetesMetricsApi", "KubernetesMetricsApi\KubernetesMetricsApi.csproj", "{78A7D48B-FAF5-4C6B-BC56-BD1A2BB57FDB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0B14ACE6-B274-4726-AACC-78414EB23157}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B14ACE6-B274-4726-AACC-78414EB23157}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B14ACE6-B274-4726-AACC-78414EB23157}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78A7D48B-FAF5-4C6B-BC56-BD1A2BB57FDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78A7D48B-FAF5-4C6B-BC56-BD1A2BB57FDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78A7D48B-FAF5-4C6B-BC56-BD1A2BB57FDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78A7D48B-FAF5-4C6B-BC56-BD1A2BB57FDB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

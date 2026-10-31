@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: storage-pod
+  namespace: default
+
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.26-alpine
+      volumeMounts:
+        - name: data
+          mountPath: /data
+  
+  volumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: dynamic-pvc

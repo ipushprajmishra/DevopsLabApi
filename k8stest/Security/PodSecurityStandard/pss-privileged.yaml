@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: pss-privileged
+  namespace: pss-lab
+
+spec:
+  containers:
+    - name: nginx
+      image: nginx:1.26-alpine
+
+      securityContext:
+        privileged: true

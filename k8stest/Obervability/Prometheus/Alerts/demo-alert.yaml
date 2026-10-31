@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+
+metadata:
+  name: kubernetes-lab-alerts
+  namespace: monitoring
+  labels:
+    release: monitoring
+
+spec:
+  groups:
+    - name: kubernetes-lab.rules
+
+      rules:
+        - alert: MonitoringDemoDown
+          expr: up{namespace="kubernetes-lab"} == 0
+          for: 1m
+
+          labels:
+            severity: warning
+            team: platform
+
+          annotations:
+           summary: "Monitoring demo is down"
+           description: "A monitoring demo target in k8s"

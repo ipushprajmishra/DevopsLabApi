@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "2XhXsv4J4VD8Mgynj4zFrN4/EAtFOQvbG/TE78h1Of0=",
+  "Source": "KubernetesMetricsApi",
+  "BasePath": "_content/KubernetesMetricsApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

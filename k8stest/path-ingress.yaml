@@ -1,0 +1,47 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+
+metadata:
+  name: app-ingress
+  namespace: ingress-lab
+
+
+spec:
+  ingressClassName: nginx
+
+  rules:
+    - host: devopslab.local
+
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+
+            backend:
+              service:
+                name: web
+                port: 
+                  number: 80
+
+          - path: /api
+            pathType: Prefix
+
+            backend:
+              service:
+                name: api
+                port: 
+                  number: 80
+
+          - path: /admin
+            pathType: Prefix
+
+            backend:
+              service:
+                name: admin
+                port: 
+                  number: 80
+
+  rules:
+    - host:
+        paths:
+          - path:

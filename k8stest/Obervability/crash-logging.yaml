@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: crash-logging
+  namespace: kubernetes-lab
+
+spec:
+  restartPolicy: Always
+
+  containers:
+    - name: app
+      image: busybox:1.36
+
+      command:
+        - sh
+        - -c
+        - |
+          echo "Application starting"
+          echo "Connecting to database"
+          echo "Database connection failed" >&2
+          exit 1

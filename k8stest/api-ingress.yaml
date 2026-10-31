@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+
+metadata:
+  name: api-ingress
+  namespace: app-dev
+
+spec:
+  podSelector:
+    matchLabels:
+      app: api
+  
+  policyTypes:
+    - Ingress
+
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              environment: staging
+      
+      ports:
+        - protocol: TCP
+          port : 80
